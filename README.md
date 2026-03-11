@@ -1,59 +1,167 @@
-Production Kubernetes GitOps Platform on AWS
+# Production Kubernetes GitOps Platform on AWS
 
-This project demonstrates how to build a production-style Kubernetes platform using Terraform, EKS, ArgoCD GitOps, and Prometheus/Grafana observability.
+This repository demonstrates how to design and operate a **production-style Kubernetes platform** using modern DevOps and platform engineering practices.
 
-The platform automates infrastructure provisioning, application deployment, and monitoring in a fully cloud-native workflow.
+The platform provisions cloud infrastructure using Terraform, deploys applications using GitOps with ArgoCD, exposes services through an AWS Application Load Balancer, and provides full observability through Prometheus and Grafana.
 
-Architecture Overview
-Internet
-   ↓
-AWS Application Load Balancer
-   ↓
-Kubernetes Ingress
-   ↓
-Application Pods
-   ↓
-Prometheus Metrics
-   ↓
-Grafana Observability
+---
 
-Infrastructure provisioning and GitOps automation are handled by Terraform and ArgoCD.
+## System Architecture
 
-Infrastructure Provisioning (Terraform)
+            Internet
+                │
+                ▼
+    AWS Application Load Balancer
+                │
+                ▼
+       Kubernetes Ingress
+                │
+                ▼
+         Kubernetes Service
+                │
+                ▼
+         Application Pods
+                │
+     ┌──────────┴──────────┐
+     ▼                     ▼
 
-Terraform provisions the AWS infrastructure including the VPC, subnets, security groups, and EKS cluster.
+Prometheus Metrics Kubernetes State
+│
+▼
+Grafana
+Observability Dashboard
 
-Container Image in Amazon ECR
 
-The application container is built and pushed to Amazon ECR for deployment inside Kubernetes.
+---
 
-Kubernetes Ingress and Load Balancer
+## Platform Workflow
 
-Traffic enters the cluster through an AWS Application Load Balancer managed by the Kubernetes AWS Load Balancer Controller.
 
-GitOps Continuous Deployment (ArgoCD)
+Developer Push
+│
+▼
+GitHub
+│
+▼
+ArgoCD
+│
+▼
+Kubernetes Cluster (EKS)
+│
+▼
+Application Deployment
 
-ArgoCD continuously monitors the Git repository and automatically synchronizes Kubernetes resources with the desired state.
 
-Platform Observability (Grafana)
+ArgoCD continuously monitors the repository and synchronizes the Kubernetes cluster to match the **desired state stored in Git**.
 
-Prometheus collects metrics from the cluster and Grafana visualizes system health, enabling real-time monitoring of CPU, memory, and pod activity.
+---
 
-Simulated Deployment Failure
+## Infrastructure Provisioning
 
-During testing, the nginx deployment was intentionally scaled beyond the cluster's scheduling capacity. This caused pods to enter a Pending state due to pod-per-node limits.
+Terraform is used to provision the AWS infrastructure required to run the platform, including:
 
-The issue was diagnosed using Kubernetes scheduling events and resolved by scaling the EKS node group to increase cluster capacity.
+- VPC networking
+- Public and private subnets
+- Security groups
+- Amazon EKS cluster
+- Worker node groups
 
-Incident details are documented in:
+This ensures the infrastructure is **reproducible, version-controlled, and automated**.
+
+---
+
+## Kubernetes Ingress and Load Balancer
+
+![EKS Ingress Load Balancer](screenshots/eks-ingress-loadbalancer.png)
+
+External traffic enters the platform through an **AWS Application Load Balancer (ALB)** managed by the AWS Load Balancer Controller.
+
+The ALB routes incoming requests to services running inside the Kubernetes cluster.
+
+---
+
+## GitOps Deployment with ArgoCD
+
+![ArgoCD GitOps Sync](screenshots/argocd-gitops-sync.png)
+
+ArgoCD implements the **GitOps deployment model**, where the desired state of the cluster is defined in Git.
+
+ArgoCD continuously monitors the repository and automatically synchronizes the cluster to match the Git configuration.
+
+---
+
+## Platform Observability with Prometheus and Grafana
+
+![Grafana Cluster Observability Dashboard](screenshots/grafana-cluster-observability-dashboard.png)
+
+Prometheus collects metrics from the Kubernetes cluster, including node usage, pod activity, and system health.
+
+Grafana visualizes these metrics through dashboards that allow engineers to monitor:
+
+- CPU utilization
+- Memory consumption
+- Pod activity
+- Cluster performance
+
+---
+
+## Kubernetes Pod Monitoring
+
+![Grafana Pod Metrics](screenshots/grafana-cluster-observability-dashboard-2.png)
+
+This dashboard shows pod-level resource consumption, allowing engineers to identify resource spikes and investigate workload behavior in real time.
+
+---
+
+## Simulated Deployment Failure
+
+During testing, the nginx deployment was intentionally scaled beyond the cluster’s scheduling capacity.
+
+This caused several pods to enter a **Pending state** due to pod-per-node limits in the worker node group.
+
+The issue was diagnosed using Kubernetes scheduling events and resolved by scaling the EKS node group.
+
+Detailed incident analysis is documented in:
+
 
 docs/incidents/simulated-deployment-failure.md
-Technology Stack
 
-Terraform
-AWS EKS
-Kubernetes
-ArgoCD GitOps
-Prometheus
-Grafana
+
+---
+
+## Technology Stack
+
+Terraform  
+AWS EKS  
+Kubernetes  
+Docker  
+ArgoCD  
+Prometheus  
+Grafana  
 AWS Application Load Balancer
+
+---
+
+## Key Capabilities Demonstrated
+
+- Infrastructure as Code (Terraform)
+- Kubernetes platform engineering
+- GitOps-based deployment automation
+- Cloud-native ingress with AWS ALB
+- Production monitoring with Prometheus and Grafana
+- Incident diagnosis and remediation
+What your repo now communicates
+
+When someone lands on your GitHub page they immediately see:
+
+Architecture
+↓
+Infrastructure
+↓
+Deployment Automation
+↓
+Traffic Routing
+↓
+Observability
+↓
+Operational Failure Analysis
