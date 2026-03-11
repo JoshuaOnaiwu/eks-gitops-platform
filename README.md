@@ -152,19 +152,3 @@ AWS Application Load Balancer
 * Incident diagnosis and remediation
 
 ---
-
-## What This Repository Demonstrates
-
-When someone lands on this repository they can quickly understand the platform lifecycle:
-
-Architecture
-↓
-Infrastructure
-↓
-Deployment Automation
-↓
-Traffic Routing
-↓
-Observability
-↓
-Operational Failure Analysis
