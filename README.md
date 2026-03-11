@@ -8,49 +8,49 @@ The platform provisions cloud infrastructure using Terraform, deploys applicatio
 
 ## System Architecture
 
-        Internet
-            │
-            ▼
-AWS Application Load Balancer
-            │
-            ▼
-   Kubernetes Ingress
-            │
-            ▼
-     Kubernetes Service
-            │
-            ▼
-     Application Pods
-            │
- ┌──────────┴──────────┐
- ▼                     ▼
-
-Prometheus Metrics Kubernetes State
-│
-▼
-Grafana
-Observability Dashboard
-
+```
+            Internet
+                │
+                ▼
+    AWS Application Load Balancer
+                │
+                ▼
+       Kubernetes Ingress
+                │
+                ▼
+         Kubernetes Service
+                │
+                ▼
+         Application Pods
+                │
+     ┌──────────┴──────────┐
+     ▼                     ▼
+ Prometheus Metrics   Kubernetes State
+                │
+                ▼
+              Grafana
+     Observability Dashboard
+```
 
 ---
 
 ## Platform Workflow
 
-
+```
 Developer Push
-│
-▼
-GitHub
-│
-▼
-ArgoCD
-│
-▼
+      │
+      ▼
+    GitHub
+      │
+      ▼
+    ArgoCD
+      │
+      ▼
 Kubernetes Cluster (EKS)
-│
-▼
+      │
+      ▼
 Application Deployment
-
+```
 
 ArgoCD continuously monitors the repository and synchronizes the Kubernetes cluster to match the **desired state stored in Git**.
 
@@ -60,11 +60,11 @@ ArgoCD continuously monitors the repository and synchronizes the Kubernetes clus
 
 Terraform is used to provision the AWS infrastructure required to run the platform, including:
 
-- VPC networking
-- Public and private subnets
-- Security groups
-- Amazon EKS cluster
-- Worker node groups
+* VPC networking
+* Public and private subnets
+* Security groups
+* Amazon EKS cluster
+* Worker node groups
 
 This ensures the infrastructure is **reproducible, version-controlled, and automated**.
 
@@ -98,10 +98,10 @@ Prometheus collects metrics from the Kubernetes cluster, including node usage, p
 
 Grafana visualizes these metrics through dashboards that allow engineers to monitor:
 
-- CPU utilization
-- Memory consumption
-- Pod activity
-- Cluster performance
+* CPU utilization
+* Memory consumption
+* Pod activity
+* Cluster performance
 
 ---
 
@@ -123,33 +123,33 @@ The issue was diagnosed using Kubernetes scheduling events and resolved by scali
 
 Detailed incident analysis is documented in:
 
-
+```
 docs/incidents/simulated-deployment-failure.md
-
+```
 
 ---
 
 ## Technology Stack
 
-Terraform  
-AWS EKS  
-Kubernetes  
-Docker  
-ArgoCD  
-Prometheus  
-Grafana  
+Terraform
+AWS EKS
+Kubernetes
+Docker
+ArgoCD
+Prometheus
+Grafana
 AWS Application Load Balancer
 
 ---
 
 ## Key Capabilities Demonstrated
 
-- Infrastructure as Code (Terraform)
-- Kubernetes platform engineering
-- GitOps-based deployment automation
-- Cloud-native ingress with AWS ALB
-- Production monitoring with Prometheus and Grafana
-- Incident diagnosis and remediation
+* Infrastructure as Code (Terraform)
+* Kubernetes platform engineering
+* GitOps-based deployment automation
+* Cloud-native ingress with AWS ALB
+* Production monitoring with Prometheus and Grafana
+* Incident diagnosis and remediation
 
 ---
 
@@ -157,14 +157,14 @@ AWS Application Load Balancer
 
 When someone lands on this repository they can quickly understand the platform lifecycle:
 
-Architecture  
-↓  
-Infrastructure  
-↓  
-Deployment Automation  
-↓  
-Traffic Routing  
-↓  
-Observability  
-↓  
+Architecture
+↓
+Infrastructure
+↓
+Deployment Automation
+↓
+Traffic Routing
+↓
+Observability
+↓
 Operational Failure Analysis
