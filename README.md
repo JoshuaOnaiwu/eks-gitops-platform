@@ -8,22 +8,22 @@ The platform provisions cloud infrastructure using Terraform, deploys applicatio
 
 ## System Architecture
 
-            Internet
-                │
-                ▼
-    AWS Application Load Balancer
-                │
-                ▼
-       Kubernetes Ingress
-                │
-                ▼
-         Kubernetes Service
-                │
-                ▼
-         Application Pods
-                │
-     ┌──────────┴──────────┐
-     ▼                     ▼
+        Internet
+            │
+            ▼
+AWS Application Load Balancer
+            │
+            ▼
+   Kubernetes Ingress
+            │
+            ▼
+     Kubernetes Service
+            │
+            ▼
+     Application Pods
+            │
+ ┌──────────┴──────────┐
+ ▼                     ▼
 
 Prometheus Metrics Kubernetes State
 │
@@ -150,18 +150,21 @@ AWS Application Load Balancer
 - Cloud-native ingress with AWS ALB
 - Production monitoring with Prometheus and Grafana
 - Incident diagnosis and remediation
-What your repo now communicates
 
-When someone lands on your GitHub page they immediately see:
+---
 
-Architecture
-↓
-Infrastructure
-↓
-Deployment Automation
-↓
-Traffic Routing
-↓
-Observability
-↓
+## What This Repository Demonstrates
+
+When someone lands on this repository they can quickly understand the platform lifecycle:
+
+Architecture  
+↓  
+Infrastructure  
+↓  
+Deployment Automation  
+↓  
+Traffic Routing  
+↓  
+Observability  
+↓  
 Operational Failure Analysis
