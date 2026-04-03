@@ -1,0 +1,8 @@
+spec:
+  source:
+    helm:
+      parameters:
+        - name: image.repository
+          value: 808850079759.dkr.ecr.us-east-1.amazonaws.com/node-app-ci-cd
+        - name: image.tag
+          value: latest
